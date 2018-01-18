@@ -11,13 +11,17 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
     Image img;
     Thread thread;
     Snake snake;
+    boolean gameOver;
+    Apple apple;
 
     public void init() {
         this.resize(400, 400);
+        gameOver = false;
         img = createImage(400, 400);
         gfx = img.getGraphics();
         this.addKeyListener(this);
         snake = new Snake();
+        apple = new Apple(snake);
         thread = new Thread(this);
         thread.start();
     }
@@ -25,7 +29,14 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
     public void paint(Graphics g) {
         gfx.setColor(Color.black);
         gfx.fillRect(0, 0, 400, 400);
-        snake.draw(gfx);
+        if (!gameOver) {
+            snake.draw(gfx);
+            apple.draw(gfx);
+        }
+        else {
+            gfx.setColor(Color.red);
+            gfx.drawString("Game Over", 180, 150);
+        }
 
 
         g.drawImage(img, 0, 0, null);
@@ -44,7 +55,11 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
         for (; ; ) {
 
 
-            snake.move();
+            if (!gameOver){
+                snake.move();
+                this.checkGameOver();
+                apple.snakeCollision();
+            }
 
             this.repaint();
             try {
@@ -55,12 +70,25 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
         }
     }
 
+    public void checkGameOver() {
+        //snake out of the screen
+        if (snake.getX() < 0 || snake.getX() > 396) {
+            gameOver = true;
+        }
+        if (snake.getY() < 0 || snake.getY() > 396) {
+            gameOver = true;
+        }
+        if (snake.snakeCollision()) {
+            gameOver = true;
+        }
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
 
         if (!snake.isMoving()) {
             if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN
-                    || e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    || e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 snake.setIsMoving(true);
             }
         }
