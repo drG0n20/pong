@@ -9,6 +9,7 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
 
     Graphics gfx;
     Image img;
+    Thread thread;
 
     public void init() {
         this.resize(400, 400);
