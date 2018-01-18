@@ -9,7 +9,7 @@ public class Snake {
     List<Point> snakePoints;
     int xDir, yDir;
     boolean isMoving, elongate;
-    final int STARTSIZE = 20, STARTX = 150, STARTY = 150;
+    final int STARTSIZE = 10, STARTX = 150, STARTY = 150;
 
 
     public Snake() {
@@ -27,7 +27,7 @@ public class Snake {
     public void draw(Graphics g) {
         g.setColor(Color.white);
         for (Point p : snakePoints) {
-            g.fillRect(p.getX(), p.getY(), 4, 4);
+            g.fillRect(p.getX(), p.getY(), 10, 10);
         }
     }
 
@@ -40,24 +40,28 @@ public class Snake {
                 snakePoints.set(i, snakePoints.get(i - 1));
             }
             snakePoints.set(0, newStart);
+            if (elongate) {
+                snakePoints.add(last);
+                elongate = false;
+            }
         }
     }
 
-    public boolean snakeCollision(){
+    public boolean snakeCollision() {
         int x = this.getX();
         int y = this.getY();
-        for (int i = 1; i < snakePoints.size(); i++){
+        for (int i = 1; i < snakePoints.size(); i++) {
             if (snakePoints.get(i).getX() == x && snakePoints.get(i).getY() == y)
                 return true;
         }
         return false;
     }
 
-    public boolean isMoving(){
+    public boolean isMoving() {
         return isMoving;
     }
 
-    public void setIsMoving(boolean b){
+    public void setIsMoving(boolean b) {
         isMoving = b;
     }
 
@@ -84,5 +88,9 @@ public class Snake {
 
     public int getY() {
         return snakePoints.get(0).getY();
+    }
+
+    public void setElongate(boolean b) {
+        elongate = b;
     }
 }

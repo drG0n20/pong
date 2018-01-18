@@ -32,12 +32,11 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
         if (!gameOver) {
             snake.draw(gfx);
             apple.draw(gfx);
-        }
-        else {
+        } else {
             gfx.setColor(Color.red);
             gfx.drawString("Game Over", 180, 150);
+            gfx.drawString("Score: " + apple.getScore(), 180, 170);
         }
-
 
         g.drawImage(img, 0, 0, null);
     }
@@ -55,7 +54,7 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
         for (; ; ) {
 
 
-            if (!gameOver){
+            if (!gameOver) {
                 snake.move();
                 this.checkGameOver();
                 apple.snakeCollision();
@@ -63,7 +62,7 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
 
             this.repaint();
             try {
-                Thread.sleep(40);
+                Thread.sleep(60);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -72,10 +71,10 @@ public class SnakeGame extends Applet implements Runnable, KeyListener {
 
     public void checkGameOver() {
         //snake out of the screen
-        if (snake.getX() < 0 || snake.getX() > 396) {
+        if (snake.getX() < 0 || snake.getX() > 390) {
             gameOver = true;
         }
-        if (snake.getY() < 0 || snake.getY() > 396) {
+        if (snake.getY() < 0 || snake.getY() > 390) {
             gameOver = true;
         }
         if (snake.snakeCollision()) {
