@@ -31,6 +31,16 @@ public class Snake {
         }
     }
 
+    public void move() {
+        Point temp = snakePoints.get(0);
+        Point last = snakePoints.get(snakePoints.size() - 1);
+        Point newStart = new Point(temp.getX() + xDir * 4, temp.getY() + yDir * 4);
+        for (int i = snakePoints.size() - 1; i >= 1; i--) {
+            snakePoints.set(i, snakePoints.get(i - 1));
+        }
+        snakePoints.set(0, newStart);
+    }
+
     public int getXDir() {
         return xDir;
     }
