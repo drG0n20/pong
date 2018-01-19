@@ -24,8 +24,9 @@ public class Main {
         int healthPotionDropChance = 50; //Percentage
 
         boolean ruuning = true;
-
-        System.out.println("Welcome to the Dungeone");
+        System.out.println("\t###################################");
+        System.out.println("\t##### WELCOME TO THE DUNGEON! #####");
+        System.out.println("\t###################################");
 
         GAME:
         while (ruuning) {
@@ -33,14 +34,14 @@ public class Main {
 
             int enemyHealth = rand.nextInt(maxEnemyHealth);
             String enemy = enemies[rand.nextInt(enemies.length)];
-            System.out.println("\t# " + enemy + "appeared! #\n");
+            System.out.println("\t# " + enemy + " appeared! #\n");
 
             while (enemyHealth > 0) {
                 System.out.println("\tYour HP: " + health);
                 System.out.println("\t" + enemy + "'s HP: " + enemyHealth);
                 System.out.println("\n\tWhat would You like to do?");
                 System.out.println("\t1. Attack");
-                System.out.println("\t2. Drink a Bear");
+                System.out.println("\t2. Drink a Beer");
                 System.out.println("\t3. Run!!!!");
 
                 String input = in.nextLine();
@@ -50,12 +51,67 @@ public class Main {
 
                     enemyHealth -= damageDealt;
                     health -= damageTaken;
+
+                    System.out.println("\t> You strike the " + enemy + " for " + damageDealt + " damage.");
+                    System.out.println("\t> You recieve " + damageTaken + " in retaliation!");
+
+                    if (health < 1) {
+                        System.out.println("\t> You have taken too much damage, you are too weak to go on!");
+                        break;
+                    }
+
                 } else if (input.equals("2")) {
+                    if (numHealthPotions > 0) {
+                        health += healthPotionHealAmount;
+                        numHealthPotions--;
+                        System.out.println("\t> Your drink a beer, healing yourself for " + healthPotionHealAmount + "."
+                                + "\n\t> You now have " + health + " HP."
+                                + "\n\t> You have " + numHealthPotions + "Beers left. \n");
+                    } else {
+                        System.out.println("\t> Oh no! You have no more beer left! Defeat enemies for a chance to get some!");
+                    }
 
                 } else if (input.equals("3")) {
-
+                    System.out.println("\tYou run away from the " + enemy + "!");
+                    continue GAME;
+                } else {
+                    System.out.println("\tInvalid command!");
                 }
             }
+            if (health < 1) {
+                System.out.println("\t> You limp out of the dungeon, wak from battle");
+                break;
+            }
+            System.out.println("---------------------------------------------");
+            System.out.println(" # " + enemy + " was defeated! #");
+            System.out.println(" # You have " + health + " HP left. #");
+
+            if (rand.nextInt(100) < healthPotionDropChance) {
+                numHealthPotions++;
+                System.out.println(" # The " + enemy + " dropped a bottle of beer! # ");
+                System.out.println(" # You now have " + numHealthPotions + " bottle(s) of magical healing (beer) potion(s) # ");
+            }
+            System.out.println("---------------------------------------------");
+            System.out.println("What would You like to do now?");
+            System.out.println("1. Continue fighting");
+            System.out.println("2. Exit dungeon");
+
+            String input = in.nextLine();
+
+            while (!input.equals("1") && !input.equals("2")) {
+                System.out.println("Invalid command!");
+                input = in.nextLine();
+            }
+
+            if (input.equals("1")) {
+                System.out.println("You continue on your adventure!");
+            } else if (input.equals("2")) {
+                System.out.println("You exit the dungeon, successful from your adventures!");
+                break;
+            }
         }
+        System.out.println("#######################");
+        System.out.println("# THANKS FOR PLAYING! #");
+        System.out.println("#######################");
     }
 }
