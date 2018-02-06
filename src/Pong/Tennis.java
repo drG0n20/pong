@@ -45,6 +45,7 @@ public class Tennis extends Applet implements Runnable, KeyListener {
             gfx.setColor(Color.white);
             gfx.drawString("The Game of Pong", 340, 100);
             gfx.drawString("Press Enter to Begin...", 310, 130);
+            gfx.drawString("Move with UP and DOWN arrow", 310, 130);
         }
         g.drawImage(img, 0,0, this);
     }

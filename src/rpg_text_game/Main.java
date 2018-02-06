@@ -66,7 +66,7 @@ public class Main {
                         numHealthPotions--;
                         System.out.println("\t> Your drink a beer, healing yourself for " + healthPotionHealAmount + "."
                                 + "\n\t> You now have " + health + " HP."
-                                + "\n\t> You have " + numHealthPotions + "Beers left. \n");
+                                + "\n\t> You have " + numHealthPotions + " beers left. \n");
                     } else {
                         System.out.println("\t> Oh no! You have no more beer left! Defeat enemies for a chance to get some!");
                     }
